@@ -10,10 +10,31 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: bash ${{ github.action_path }}/main.sh
+    - name: tfsec (push event)
+      run: |
+        tfsec --format=checkstyle . |
+          reviewdog -f=checkstyle \
+            -name="tfsec" \
+            -filter-mode=nofilter \
+            -reporter=github-check \
+            -level=warning \
+            -fail-on-error=1
       shell: bash
+      if: github.event_name != 'pull_request'
       working-directory: ${{ inputs.working_directory }}
       env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
         REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github_token }}
-        EVENT_NAME: ${{ github.event_name }}
+    - name: tfsec (pull_request event)
+      run: |
+        tfsec --format=checkstyle . |
+          reviewdog -f=checkstyle \
+            -name="tfsec" \
+            -filter-mode=nofilter \
+            -reporter=github-pr-review \
+            -level=warning \
+            -fail-on-error=1
+      shell: bash
+      if: github.event_name == 'pull_request'
+      working-directory: ${{ inputs.working_directory }}
+      env:
+        REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github_token }}
