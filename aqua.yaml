@@ -6,6 +6,6 @@ registries:
   ref: v0.14.4 # renovate: depName=aquaproj/aqua-registry
 
 packages:
-- name: aquasecurity/tfsec@v1.0.4
+- name: aquasecurity/tfsec@v1.0.8
 - name: rhysd/actionlint@v1.6.8
 - name: reviewdog/reviewdog@v0.13.1
