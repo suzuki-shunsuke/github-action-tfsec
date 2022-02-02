@@ -10,42 +10,5 @@ inputs:
     required: false
     default: ""
 runs:
-  using: composite
-  steps:
-    - name: 'Link to Action: https://github.com/suzuki-shunsuke/github-action-tfsec'
-      run: echo "::debug::Link to Action https://github.com/suzuki-shunsuke/github-action-tfsec"
-      shell: bash
-
-    - run: |
-        echo "::error ::github_token is required. https://github.com/suzuki-shunsuke/github-action-tfsec"
-        exit 1
-      shell: bash
-      if: inputs.github_token == ''
-
-    - name: check tfsec is installed
-      run: tfsec -v
-      shell: bash
-      working-directory: ${{ inputs.working_directory }}
-    - name: check reviewdog is installed
-      run: reviewdog -version
-      shell: bash
-      working-directory: ${{ inputs.working_directory }}
-
-    - name: tfsec
-      shell: bash
-      working-directory: ${{ inputs.working_directory }}
-      env:
-        REVIEWDOG_GITHUB_API_TOKEN: ${{ inputs.github_token }}
-      run: |
-        reporter=github-check
-        if [ "${{ github.event_name }}" = "pull_request" ]; then
-          reporter=github-pr-review
-        fi
-
-        tfsec --format=checkstyle . |
-          reviewdog -f=checkstyle \
-            -name="tfsec" \
-            -filter-mode=nofilter \
-            -reporter="$reporter" \
-            -level=warning \
-            -fail-on-error=1
+  using: node16
+  main: dist/index.js
