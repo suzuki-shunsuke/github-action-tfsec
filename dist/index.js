@@ -9663,6 +9663,12 @@ function getSeverity(s) {
     }
     return null;
 }
+function getURL(result) {
+    if (result.links && result.links.length != 0) {
+        return result.links[0];
+    }
+    return '';
+}
 const run = (inputs) => __awaiter(void 0, void 0, void 0, function* () {
     core.info('Running tfsec');
     const out = yield exec.getExecOutput('tfsec', ['--format', 'json', '.'], {
@@ -9682,7 +9688,7 @@ const run = (inputs) => __awaiter(void 0, void 0, void 0, function* () {
             message: result.description,
             code: {
                 value: result.long_id ? result.long_id : result.rule_id,
-                url: result.links[0],
+                url: getURL(result),
             },
             location: {
                 path: result.location.filename,

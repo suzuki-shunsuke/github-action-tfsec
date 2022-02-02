@@ -20,6 +20,13 @@ function getSeverity(s: string): string | null {
   return null;
 }
 
+function getURL(result: any): string {
+  if (result.links && result.links.length != 0) {
+    return result.links[0];
+  }
+  return '';
+}
+
 export const run = async (inputs: Inputs): Promise<void> => {
   core.info('Running tfsec');
   const out = await exec.getExecOutput('tfsec', ['--format', 'json', '.'], {
@@ -39,7 +46,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
       message: result.description,
       code: {
         value: result.long_id ? result.long_id : result.rule_id,
-        url: result.links[0],
+        url: getURL(result),
       },
       location: {
         path: result.location.filename,
