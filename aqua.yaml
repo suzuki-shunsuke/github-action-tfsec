@@ -8,4 +8,4 @@ registries:
 packages:
 - name: aquasecurity/tfsec@v1.1.4
 - name: rhysd/actionlint@v1.6.8
-- name: reviewdog/reviewdog@v0.13.1
+- name: reviewdog/reviewdog@v0.14.0
