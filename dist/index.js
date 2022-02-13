@@ -9606,6 +9606,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, run_1.run)({
         workingDirectory: core.getInput('working_directory', { required: true }),
         githubToken: core.getInput('github_token', { required: true }),
+        githubComment: core.getBooleanInput('github_comment', { required: true }),
     });
 });
 main().catch((e) => core.setFailed(e instanceof Error ? e.message : JSON.stringify(e)));
@@ -9651,6 +9652,58 @@ exports.run = void 0;
 const exec = __importStar(__nccwpck_require__(7723));
 const core = __importStar(__nccwpck_require__(488));
 const github = __importStar(__nccwpck_require__(9759));
+const path = __importStar(__nccwpck_require__(1017));
+class DiagnosticCode {
+    constructor() {
+        this.value = '';
+        this.url = '';
+    }
+}
+class DiagnosticLocation {
+    constructor() {
+        this.path = '';
+        this.range = new DiagnosticLocationRange();
+    }
+}
+class DiagnosticLocationRange {
+    constructor() {
+        this.start = new DiagnosticLocationRangePoint();
+        this.end = new DiagnosticLocationRangePoint();
+    }
+}
+class DiagnosticLocationRangePoint {
+    constructor() {
+        this.line = 0;
+    }
+}
+class Diagnostic {
+    constructor() {
+        this.message = '';
+        this.code = new DiagnosticCode();
+        this.location = new DiagnosticLocation();
+        this.severity = '';
+    }
+}
+function generateTable(diagnostics, basePath) {
+    const lines = ['rule | severity | filepath | range | message', '--- | --- | --- | --- | ---'];
+    for (let i = 0; i < diagnostics.length; i++) {
+        const diagnostic = diagnostics[i];
+        let rule = diagnostic.code.value;
+        if (diagnostic.code.url) {
+            rule = `[${diagnostic.code.value}](${diagnostic.code.url})`;
+        }
+        let range = '';
+        if (diagnostic.location && diagnostic.location.range && diagnostic.location.range.start) {
+            range = `${diagnostic.location.range.start.line} ... ${diagnostic.location.range.end.line}`;
+        }
+        let locPath = diagnostic.location.path;
+        if (path.isAbsolute(diagnostic.location.path)) {
+            locPath = path.relative(basePath, diagnostic.location.path);
+        }
+        lines.push(`${rule} | ${diagnostic.severity} | ${locPath} | ${range} | ${diagnostic.message}`);
+    }
+    return lines.join('\n');
+}
 function getSeverity(s) {
     if (s.startsWith('HIGH')) {
         return 'ERROR';
@@ -9661,7 +9714,7 @@ function getSeverity(s) {
     if (s.startsWith('LOW')) {
         return 'INFO';
     }
-    return null;
+    return '';
 }
 function getURL(result) {
     if (result.links && result.links.length != 0) {
@@ -9681,7 +9734,7 @@ const run = (inputs) => __awaiter(void 0, void 0, void 0, function* () {
         core.info('tfsec results is null');
         return;
     }
-    const diagnostics = [];
+    const diagnostics = new Array();
     for (let i = 0; i < outJSON.results.length; i++) {
         const result = outJSON.results[i];
         diagnostics.push({
@@ -9702,6 +9755,20 @@ const run = (inputs) => __awaiter(void 0, void 0, void 0, function* () {
                 },
             },
             severity: getSeverity(result.severity),
+        });
+    }
+    if (inputs.githubComment && diagnostics.length > 0) {
+        const table = generateTable(diagnostics, inputs.workingDirectory);
+        const githubCommentTemplate = `## :x: tfsec error
+
+{{template "link" .}} | [tfsec](https://aquasecurity.github.io/tfsec) | [Ignoring Checks](https://aquasecurity.github.io/tfsec/latest/getting-started/configuration/ignores/) | [tfsec Config](https://aquasecurity.github.io/tfsec/latest/getting-started/configuration/config/)
+
+Working Directory: \`${inputs.workingDirectory}\`
+
+${table}`;
+        yield exec.exec('github-comment', ['post', '-stdin-template'], {
+            input: Buffer.from(githubCommentTemplate),
+            env: Object.assign(Object.assign({}, process.env), { GITHUB_TOKEN: inputs.githubToken }),
         });
     }
     const reporter = github.context.eventName == 'pull_request' ? 'github-pr-review' : 'github-check';
