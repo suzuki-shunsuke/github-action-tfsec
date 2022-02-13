@@ -42,6 +42,8 @@ e.g.
     github_comment: true # Enable github-comment notification
 ```
 
+:bulb: If you want to hide old notification, please use [github-comment hide command](https://github.com/suzuki-shunsuke/github-comment#hide).
+
 ## Example
 
 ```yaml
