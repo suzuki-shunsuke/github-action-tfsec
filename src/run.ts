@@ -61,7 +61,7 @@ function generateTable(diagnostics: Array<Diagnostic>, basePath: string): string
 }
 
 function getSeverity(s: string): string {
-  if (s.startsWith('HIGH')) {
+  if (s.startsWith('HIGH') || s.startsWith('CRITICAL')) {
     return 'ERROR';
   }
   if (s.startsWith('MEDIUM')) {
