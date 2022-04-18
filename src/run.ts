@@ -120,7 +120,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
     const table = generateTable(diagnostics, inputs.workingDirectory);
     const githubCommentTemplate = `## :x: tfsec error
 
-{{template "link" .}} | [tfsec](https://aquasecurity.github.io/tfsec) | [Ignoring Checks](https://aquasecurity.github.io/tfsec/latest/getting-started/configuration/ignores/) | [tfsec Config](https://aquasecurity.github.io/tfsec/latest/getting-started/configuration/config/)
+{{template "link" .}} | [tfsec](https://aquasecurity.github.io/tfsec) | [Ignoring Checks](https://aquasecurity.github.io/tfsec/latest/guides/configuration/ignores/) | [tfsec Config](https://aquasecurity.github.io/tfsec/latest/guides/configuration/config/)
 
 Working Directory: \`${inputs.workingDirectory}\`
 
