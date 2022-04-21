@@ -8,5 +8,5 @@ registries:
 packages:
 - name: aquasecurity/tfsec@v1.18.0
 - name: rhysd/actionlint@v1.6.12
-- name: reviewdog/reviewdog@v0.14.0
+- name: reviewdog/reviewdog@v0.14.1
 - name: suzuki-shunsuke/github-comment@v4.1.1
