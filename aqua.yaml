@@ -9,4 +9,4 @@ packages:
 - name: aquasecurity/tfsec@v1.21.2
 - name: rhysd/actionlint@v1.6.13
 - name: reviewdog/reviewdog@v0.14.1
-- name: suzuki-shunsuke/github-comment@v4.1.1
+- name: suzuki-shunsuke/github-comment@v4.2.0
