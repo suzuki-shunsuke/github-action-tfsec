@@ -6,6 +6,7 @@ const main = async (): Promise<void> => {
     workingDirectory: core.getInput('working_directory', { required: false }),
     githubToken: core.getInput('github_token', { required: true }),
     githubComment: core.getBooleanInput('github_comment', { required: true }),
+    ignoreHCLErrors: core.getBooleanInput('ignore_hcl_errors', { required: false }),
   })
 }
 

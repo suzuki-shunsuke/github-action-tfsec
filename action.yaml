@@ -13,6 +13,10 @@ inputs:
     description: 'Whether a comment is posted with github-comment'
     required: false
     default: 'false'
+  ignore_hcl_errors:
+    description: If true, tfsec's `--ignore-hcl-errors` is enabled
+    required: false
+    default: 'false'
 runs:
   using: node16
   main: dist/index.js

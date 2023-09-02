@@ -7,6 +7,7 @@ type Inputs = {
   workingDirectory: string
   githubToken: string
   githubComment: boolean
+  ignoreHCLErrors: boolean
 }
 
 class DiagnosticCode {
@@ -82,7 +83,11 @@ function getURL(result: any): string {
 
 export const run = async (inputs: Inputs): Promise<void> => {
   core.info('Running tfsec');
-  const out = await exec.getExecOutput('tfsec', ['--format', 'json', '.'], {
+  const args = ['--format', 'json', '.'];
+  if (inputs.ignoreHCLErrors) {
+    args.push('--ignore-hcl-errors');
+  }
+  const out = await exec.getExecOutput('tfsec', args, {
     cwd: inputs.workingDirectory,
     ignoreReturnCode: true,
   });

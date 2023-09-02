@@ -82,6 +82,7 @@ name | default value | description
 github_token | `github.token` | GitHub Access Token
 working_directory | "" (current directory) | Woring Directory
 github_comment | `false` | Whether a comment is posted with github-comment
+ignore_hcl_errors | `false` | If true, tfsec's `--ignore-hcl-errors` is enabled. [ref](https://github.com/aquasecurity/tfsec/issues/2070#issuecomment-1669056215)
 
 ## Outputs
 
