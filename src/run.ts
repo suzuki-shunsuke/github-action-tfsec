@@ -81,6 +81,19 @@ function getURL(result: any): string {
   return '';
 }
 
+function trimTrivyMessage(stdout: string): string {
+  if (!stdout.startsWith('=')) {
+    return stdout;
+  }
+  const lines = stdout.split('\n').slice(1);
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith('=')) {
+      return lines.slice(i+1).join('\n');
+    }
+  }
+  return lines.join('\n');
+}
+
 export const run = async (inputs: Inputs): Promise<void> => {
   core.info('Running tfsec');
   const args = ['--format', 'json', '.'];
@@ -92,7 +105,11 @@ export const run = async (inputs: Inputs): Promise<void> => {
     ignoreReturnCode: true,
   });
   core.info('Parsing tfsec result');
-  const outJSON = JSON.parse(out.stdout);
+
+  // https://github.com/suzuki-shunsuke/github-action-tfsec/issues/618
+  const stdout = trimTrivyMessage(out.stdout.trim());
+
+  const outJSON = JSON.parse(stdout);
   if (outJSON.results == null) {
     core.info('tfsec results is null');
     return;

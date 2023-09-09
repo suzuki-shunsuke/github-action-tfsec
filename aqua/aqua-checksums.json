@@ -1,33 +1,33 @@
 {
   "checksums": [
     {
-      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.1/tfsec-darwin-amd64",
-      "checksum": "C1D760AA8277E56F9DD44E9ED2267E11A746CC4B80DE124106B578414AD4A6C9",
+      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.2/tfsec-darwin-amd64",
+      "checksum": "4ACF37F4F55DED6EEFD2AE3BBC0174AA2B1814068E722E845F54C888AD20239C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.1/tfsec-darwin-arm64",
-      "checksum": "7A8D528003C60661A445377A84BC0608A1B5F30FA2AFD1763268A80B8DE64E2D",
+      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.2/tfsec-darwin-arm64",
+      "checksum": "B1379C536266E0314D4BF0F2DF8C32CDC345187C19FE5631499B48A873FB80B5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.1/tfsec-linux-amd64",
-      "checksum": "17C1BD99EBE13BE77AC775651BC61F44B2B4409B4578485F1168EAB8C3E97507",
+      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.2/tfsec-linux-amd64",
+      "checksum": "B3E36C2C75809EA03AE6D496E2A67AC273E33F4B9625920B51DC0B47A759D90D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.1/tfsec-linux-arm64",
-      "checksum": "F2EAC8D5D0A12E9766182D190FE66AC5B8D5A341A0E07491883F733F1C159FBE",
+      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.2/tfsec-linux-arm64",
+      "checksum": "326B3880B4BA8C803894B09804A05DBFCC3C5DE5688B4BA709D6AE158D39239C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.1/tfsec-windows-amd64.exe",
-      "checksum": "4FD5E7BEEC2A5EDEBCD687217CCE1B7DF0D52D0AB9283F19E04454DD6FE9A551",
+      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.2/tfsec-windows-amd64.exe",
+      "checksum": "C3F674066482D1C6C075A47CC79915F1CEAD77CB4944DEBC09B3B5006E335BEB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.1/tfsec-windows-arm64.exe",
-      "checksum": "B7C458C6480F96A80213702B1225B45E4344B8F1CE62F2BC56844AF770FDA4BB",
+      "id": "github_release/github.com/aquasecurity/tfsec/v1.28.2/tfsec-windows-arm64.exe",
+      "checksum": "67E99C7BF852CCFA482258860F09BF6B937DEBF95654D8DBFA66695401BE9B61",
       "algorithm": "sha256"
     },
     {
