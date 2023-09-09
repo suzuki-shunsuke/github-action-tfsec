@@ -107,7 +107,7 @@ export const run = async (inputs: Inputs): Promise<void> => {
   core.info('Parsing tfsec result');
 
   // https://github.com/suzuki-shunsuke/github-action-tfsec/issues/618
-  const stdout = trimTrivyMessage(out.stdout);
+  const stdout = trimTrivyMessage(out.stdout.trim());
 
   const outJSON = JSON.parse(stdout);
   if (outJSON.results == null) {

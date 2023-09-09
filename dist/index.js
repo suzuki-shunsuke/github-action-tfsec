@@ -10889,7 +10889,7 @@ const run = (inputs) => __awaiter(void 0, void 0, void 0, function* () {
     });
     core.info('Parsing tfsec result');
     // https://github.com/suzuki-shunsuke/github-action-tfsec/issues/618
-    const stdout = trimTrivyMessage(out.stdout);
+    const stdout = trimTrivyMessage(out.stdout.trim());
     const outJSON = JSON.parse(stdout);
     if (outJSON.results == null) {
         core.info('tfsec results is null');
