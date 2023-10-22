@@ -10944,6 +10944,9 @@ ${table}`;
         })),
         env: Object.assign(Object.assign({}, process.env), { REVIEWDOG_GITHUB_API_TOKEN: inputs.githubToken }),
     });
+    if (out.exitCode != 0) {
+        throw "tfsec failed";
+    }
 });
 exports.run = run;
 
