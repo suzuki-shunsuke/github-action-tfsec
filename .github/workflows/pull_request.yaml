@@ -45,15 +45,6 @@ jobs:
     steps:
       - run: exit 1
 
-  enable-auto-merge:
-    uses: ./.github/workflows/wc-enable-auto-merge.yaml
-    secrets: inherit
-    permissions: {}
-    needs:
-      - status-check
-    if: |
-      ! failure() && ! cancelled() && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.body, ' **Automerge**: Enabled.')
-
   ghalint:
     uses: ./.github/workflows/wc-ghalint.yaml
     needs: path-filter
